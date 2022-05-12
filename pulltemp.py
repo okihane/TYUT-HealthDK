@@ -4,26 +4,14 @@ import  time
 from urllib import parse
 import json
 #from datetime import datetime
-
+#namenum是用户名，passwd是密码，分别改成自己的，这里我填了两个账号，可以填写多个，最后到主函数那里添加上相应的调用
 namenum = {
-	'sudy':'2021510026',
-	'hm':'2021510023',
-	'jiao|sudy':'2021510038',
-	'zhou|sudy':'2021510025',
-	'ChenXinKang|sudy':'2021510030',
-	'WangJiuQiang|sudy':'2021510029',
-	'WangYiPing|sudy':'2021510028',
-	'tao|sudy':'2021510027',
+	'zs':'2021510001',
+	'ls':'2021510002',
 }
 passwd = {
-	'sudy':'292010',
-	'hm':'040973',
-	'jiao|sudy':'260029',
-	'zhou|sudy':'150034',
-	'ChenXinKang|sudy':'253219',
-	'WangJiuQiang|sudy':'091551',
-	'WangYiPing|sudy':'050410',
-	'tao|sudy':'051511',
+	'zs':'1902',
+	'ls':'2022',
 }
 headers = {
 'Host':'tyutgs.wjx.cn',
@@ -241,15 +229,15 @@ def geturl2(url1):
 
 ##获取企业微信tokem
 def gettoken():
-	corpid='ww8280dd39cd19658b'
-	corpsecret='1Av3jyVBNw7zLbxspcZezclRW0vkhhJdKy9Arng-xog'
+	corpid='??????'
+	corpsecret='??????'
 	access_token_url = f'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={corpid}&corpsecret={corpsecret}'
 	reg = requests.get(url=access_token_url)
 	return json.loads(reg.text)['access_token']
 
 ##调用企业微信发送通知
 def send(access_token,user,text):
-	agentid=1000003
+	agentid=??????
 	send_msg_url = f'https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={access_token}'
 	send_msg = {
 				"touser": user,
@@ -283,17 +271,11 @@ def whoup(who,token):
 			retext += '\n❎'+titletemp[i]+'\n'+text
 	retext = '共'+str(len(titletemp))+'个问卷，已填'+str(success)+'个'+retext
 	print(retext)
-	send(token,who,retext)
+	#send(token,who,retext)
 
-##腾讯云函数主函数
-#def main_handler(event, context):
+##主函数
 if __name__ == '__main__':
-	token = gettoken()
-	whoup('sudy',token)
-	#whoup('tao|sudy',token)
-	#whoup('jiao|sudy',token)
-	#whoup('zhou|sudy',token)
-	#whoup('ChenXinKang|sudy',token)
-	#whoup('WangJiuQiang|sudy',token)
-	#whoup('WangYiPing|sudy',token)
-	#whoup('hm',token)
+	#token = gettoken()
+	token = 'token'
+	whoup('zs',token)
+	#whoup('ls',token)
