@@ -13,6 +13,9 @@ passwd = {
 	'zs':'1902',
 	'ls':'2022',
 }
+#推送开关，on/off
+ts = off
+
 headers = {
 'Host':'tyutgs.wjx.cn',
 'Connection':'keep-alive',
@@ -271,11 +274,14 @@ def whoup(who,token):
 			retext += '\n❎'+titletemp[i]+'\n'+text
 	retext = '共'+str(len(titletemp))+'个问卷，已填'+str(success)+'个'+retext
 	print(retext)
-	#send(token,who,retext)
+	if ts=='on':
+		send(token,who,retext)
 
 ##主函数
 if __name__ == '__main__':
-	#token = gettoken()
-	token = 'token'
+	if ts == 'on':
+		token = gettoken()
+	else:
+		token = 'token'
 	whoup('zs',token)
 	#whoup('ls',token)
