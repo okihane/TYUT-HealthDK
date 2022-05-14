@@ -14,7 +14,7 @@ passwd = {
 	'ls':'2022',
 }
 #推送开关，on/off
-ts = off
+ts = 'off'
 
 headers = {
 'Host':'tyutgs.wjx.cn',
