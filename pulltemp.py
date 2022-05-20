@@ -240,7 +240,7 @@ def gettoken():
 
 ##调用企业微信发送通知
 def send(access_token,user,text):
-	agentid=??????
+	agentid=1000003
 	send_msg_url = f'https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={access_token}'
 	send_msg = {
 				"touser": user,
