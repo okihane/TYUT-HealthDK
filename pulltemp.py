@@ -5,6 +5,8 @@ from urllib import parse
 import json
 #from datetime import datetime
 #namenum是用户名，passwd是密码，分别改成自己的，这里我填了两个账号，可以填写多个，最后到主函数那里添加上相应的调用
+#校区
+xq = '虎峪'
 namenum = {
 	'zs':'2021510001',
 	'ls':'2021510002',
@@ -254,7 +256,7 @@ def send(access_token,user,text):
 
 ##用户填写问卷
 def whoup(who,token):
-	submitdata = {'虎峪':'submitdata=1%241%7D2%24%7D3%24%7D4%24%E5%B1%B1%E8%A5%BF%E7%9C%81%E5%A4%AA%E5%8E%9F%E5%B8%82%E4%B8%87%E6%9F%8F%E6%9E%97%E5%8C%BA%E4%B8%8B%E5%85%83%E8%A1%97%E9%81%93%E6%89%BF%E8%96%AA%E4%B8%AD%E8%B7%AF%E5%A4%AA%E5%8E%9F%E7%90%86%E5%B7%A5%E5%A4%A7%E5%AD%A6%E8%99%8E%E5%B3%AA%E6%A0%A1%E5%8C%BA%5B112.526249%2C37.854154%5D%7D5%24%7D6%242%7D7%241!%7C%7D8%241%7D9%241%7D10%243%7D11%24(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%7D12%243%7D13%24-3%7D14%242%7D15%24(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%7D16%241'}
+	submitdata = {'虎峪':'submitdata=1%241%7D2%24%7D3%24%7D4%24%E5%B1%B1%E8%A5%BF%E7%9C%81%E5%A4%AA%E5%8E%9F%E5%B8%82%E4%B8%87%E6%9F%8F%E6%9E%97%E5%8C%BA%E4%B8%8B%E5%85%83%E8%A1%97%E9%81%93%E6%89%BF%E8%96%AA%E4%B8%AD%E8%B7%AF%E5%A4%AA%E5%8E%9F%E7%90%86%E5%B7%A5%E5%A4%A7%E5%AD%A6%E8%99%8E%E5%B3%AA%E6%A0%A1%E5%8C%BA%5B112.526249%2C37.854154%5D%7D5%24%7D6%242%7D7%241!%7C%7D8%241%7D9%241%7D10%243%7D11%24(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%7D12%243%7D13%24-3%7D14%242%7D15%24(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%7D16%241','迎西':'submitdata=1%241%7D2%24%7D3%24%7D4%24%E5%B1%B1%E8%A5%BF%E7%9C%81%E5%A4%AA%E5%8E%9F%E5%B8%82%E4%B8%87%E6%9F%8F%E6%9E%97%E5%8C%BA%E5%8D%83%E5%B3%B0%E8%A1%97%E9%81%93%E5%AE%97%E5%A4%8D%E8%B7%AF%E5%A4%AA%E5%8E%9F%E7%90%86%E5%B7%A5%E5%A4%A7%E5%AD%A6%E8%BF%8E%E8%A5%BF%E6%A0%A1%E5%8C%BA%5B112.52244%2C37.860976%5D%7D5%24%7D6%24%7D7%241!%7C%7D8%241%7D9%241%7D10%243%7D11%24(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%7D12%243%7D13%24-3%7D14%242%7D15%24(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%7D16%241'}
 	cookie = getcookie(namenum[who],passwd[who])
 	titletemp,url1temp = geturl1(cookie)
 	retext = ''
@@ -266,7 +268,7 @@ def whoup(who,token):
 			#print(url2temp)
 		else:
 			continue
-		text = requests.post(url2temp,data=submitdata['虎峪'],headers=headers).text
+		text = requests.post(url2temp,data=submitdata[xq],headers=headers).text
 		if text.find('〒')>0:
 			success += 1
 			retext += '\n✅'+titletemp[i]
