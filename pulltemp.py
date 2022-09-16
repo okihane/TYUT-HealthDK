@@ -279,7 +279,7 @@ def whoup(who,token):
 	if ts=='on':
 		send(token,who,retext)
 
-##主函数
+##入口
 if __name__ == '__main__':
 	if ts == 'on':
 		token = gettoken()
