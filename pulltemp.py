@@ -129,7 +129,7 @@ def get_jqsign(jqnonce):
 
 ##获取用户登陆cookie
 def getcookie(name,passd):
-	loginurl = 'https://tyutgs.wjx.cn/user/loginForm.aspx?user_token=RzCs8KPQb4VEfycFVJ8OMztE5FTgJGXpBj0M1NsuatiZzuullOcE2qNhFz1gNCLMf2Rz0IoQ2%2b%2fQvHgDWQRylqbGCNwf9At747llgCvdCidNf%2fEPUf6k4g%3d%3d&returnUrl=%2fuser%2fqlist.aspx%3fu%3d%25e6%2589%258b%25e6%259c%25ba%25e7%2594%25a8%25e6%2588%25b7tivliw38j0y8djcff6vstq%26userSystem%3d1%26systemId%3d55677040'
+	loginurl = 'https://tyutgs.wjx.cn/user/loginForm.aspx?user_token=RzCs8KPQb4VEfycFVJ8OM9VfMIonoDn8mvZRKvZASDFp4VcCIv5Gml6SfyIestsKb65WsTOr%2f3MaE1Ok2DHEQFUyW2Ob7XXKOQRU4g7TSxFEpwtYN%2bizadoRdU7%2bJrYW&returnUrl=%2fuser%2fqlist.aspx%3fu%3d%25e6%2589%258b%25e6%259c%25ba%25e7%2594%25a8%25e6%2588%25b7tivliw38j0y8djcff6vstq%26userSystem%3d1%26systemId%3d55677040#1'
 	logindata = getlogindata(loginurl,name,passd)
 	cookie = requests.post(loginurl,data=logindata,headers=headers).headers.get('Set-Cookie')
 	cookielist = cookie.split(',')
