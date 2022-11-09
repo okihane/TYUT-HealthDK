@@ -8,7 +8,7 @@ import datetime
 import calendar
 #from datetime import datetime
 #namenum是用户名，passwd是密码，分别改成自己的，这里我填了两个账号，可以填写多个
-#校区，明向、迎西、虎峪
+#校区,迎西、明向、虎峪
 xq = '迎西'
 namenum = {
 	'zs':'2021510001',
@@ -294,6 +294,7 @@ def send(access_token,user,text):
 ##用户填写问卷
 def whoup(who,token):
 	submitdata = {'明向':'submitdata=1%241%7D2%24%E5%B1%B1%E8%A5%BF%E7%9C%81%E6%99%8B%E4%B8%AD%E5%B8%82%E6%A6%86%E6%AC%A1%E5%8C%BA%E4%B9%8C%E9%87%91%E5%B1%B1%E9%95%87%E6%98%8E%E5%90%91%E5%A4%A7%E9%81%93%E5%A4%AA%E5%8E%9F%E7%90%86%E5%B7%A5%E5%A4%A7%E5%AD%A6%E6%98%8E%E5%90%91%E6%A0%A1%E5%8C%BA%5B112.72173%2C37.746074%5D%7D3%24','虎峪':'submitdata=1%241%7D2%24%E5%B1%B1%E8%A5%BF%E7%9C%81%E5%A4%AA%E5%8E%9F%E5%B8%82%E4%B8%87%E6%9F%8F%E6%9E%97%E5%8C%BA%E4%B8%8B%E5%85%83%E8%A1%97%E9%81%93%E6%89%BF%E8%96%AA%E4%B8%AD%E8%B7%AF%E5%A4%AA%E5%8E%9F%E7%90%86%E5%B7%A5%E5%A4%A7%E5%AD%A6%E8%99%8E%E5%B3%AA%E6%A0%A1%E5%8C%BA%5B112.526249%2C37.854154%5D%7D3%24','迎西':'submitdata=1%241%7D2%24%E5%B1%B1%E8%A5%BF%E7%9C%81%E5%A4%AA%E5%8E%9F%E5%B8%82%E4%B8%87%E6%9F%8F%E6%9E%97%E5%8C%BA%E5%8D%83%E5%B3%B0%E8%A1%97%E9%81%93%E5%AE%97%E5%A4%8D%E8%B7%AF%E5%A4%AA%E5%8E%9F%E7%90%86%E5%B7%A5%E5%A4%A7%E5%AD%A6%E8%BF%8E%E8%A5%BF%E6%A0%A1%E5%8C%BA%5B112.52244%2C37.860976%5D%7D3%24'}
+	xiaowai = 'submitdata=1%242%7D2%24%E9%99%95%E8%A5%BF%E7%9C%81%E8%A5%BF%E5%AE%89%E5%B8%82%E7%A2%91%E6%9E%97%E5%8C%BA%E5%BC%A0%E5%AE%B6%E6%9D%91%E8%A1%97%E9%81%93%E4%B8%89%E8%88%AA%E8%B7%AF%E8%A5%BF%E5%8C%97%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6%E5%8F%8B%E8%B0%8A%E6%A0%A1%E5%8C%BA%5B108.916938%2C34.242558%5D%7D3%241%7C5%7D4%241%7D5%243%7D6%24(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%7D7%243%7D8%24-3%7D9%242%7D10%24(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%5E(%E8%B7%B3%E8%BF%87)%7D11%241'
 	cookie = getcookie(namenum[who],passwd[who])
 	titletemp,url1temp = geturl1(cookie)
 	retext = ''
@@ -317,7 +318,10 @@ def whoup(who,token):
 		picname = getpicname()
 		key = qiniu+str(int(time.time()))+d+'.jpg%252C8355%252C' + picname + '%7D4%241%7C5%7D5%241%7D6%243%7D7%241'
 		submitdata[xq]+=key
-		text = requests.post(url2temp,data=submitdata[xq],headers=headers).text
+		if titletemp[i].find('非')>0:
+			text = requests.post(url2temp,data=xiaowai,headers=headers).text
+		else:
+			text = requests.post(url2temp,data=submitdata[xq],headers=headers).text
 		#print(text)
 		if text.find('complete')>0:
 			success += 1
