@@ -4,8 +4,10 @@ import  time
 from urllib import parse
 import json
 import random
+import datetime
+import calendar
 #from datetime import datetime
-#namenum是用户名，passwd是密码，分别改成自己的，这里我填了两个账号，可以填写多个，最后到主函数那里添加上相应的调用
+#namenum是用户名，passwd是密码，分别改成自己的，这里我填了两个账号，可以填写多个
 #校区
 xq = '迎西'
 namenum = {
@@ -13,11 +15,14 @@ namenum = {
 	'ls':'2021510002',
 }
 passwd = {
-	'zs':'202222',
-	'ls':'202222',
+	'zs':'057811',
+	'ls':'056551',
 }
-#推送开关，on/off
+#企业微信推送开关，on/off，参数(不用可不填)
 ts = 'off'
+mycorpid=''
+mycorpsecret=''
+myagentid=''
 
 headers = {
 'Host':'tyutgs.wjx.cn',
@@ -41,17 +46,17 @@ def abcd1(_0x17164c):
 	return abcd2(_0x17164c, 3597397)
 ##
 def abcd2(_0x1b1e02, _0x23f273):
-  	if abcdx():
-  		return
-  	_0x1f9ba1 = 2147483648
-  	_0x3b83ae = 2147483647
-  	_0x4ad458 = int(_0x1b1e02 / _0x1f9ba1)
-  	_0x470088 = int(_0x23f273 / _0x1f9ba1)
-  	_0x5bc159 = _0x1b1e02 & _0x3b83ae
-  	_0x35dfa5 = _0x23f273 & _0x3b83ae
-  	_0x353774 = _0x4ad458 ^ _0x470088
-  	_0x4a742c = _0x5bc159 ^ _0x35dfa5
-  	return _0x353774 * _0x1f9ba1 + _0x4a742c
+	if abcdx():
+		return
+	_0x1f9ba1 = 2147483648
+	_0x3b83ae = 2147483647
+	_0x4ad458 = int(_0x1b1e02 / _0x1f9ba1)
+	_0x470088 = int(_0x23f273 / _0x1f9ba1)
+	_0x5bc159 = _0x1b1e02 & _0x3b83ae
+	_0x35dfa5 = _0x23f273 & _0x3b83ae
+	_0x353774 = _0x4ad458 ^ _0x470088
+	_0x4a742c = _0x5bc159 ^ _0x35dfa5
+	return _0x353774 * _0x1f9ba1 + _0x4a742c
 ##
 def abcd3(_0x420610, _0x1b425f):
 	if (_0x420610 - 62) < 0:
@@ -81,7 +86,8 @@ def abcdu(_0x92722d):
 	#_0x3a4ef4 = naive.utcoffset()
 	#_0x58cdae = _0x2eb3ad - _0x3a4ef4
 	timeArray = time.strptime(_0x92722d, "%Y-%m-%d %H:%M:%S")
-	return time.mktime(timeArray)
+	#return time.mktime(timeArray)
+	return calendar.timegm(timeArray)
 ##
 def abcdx():
 	return False
@@ -234,7 +240,6 @@ def geturl2(url1):
 	#print(url2)
 	urlqiniu = 'https://tyutgs.wjx.cn/joinnew/GetQiniuToken.ashx?ms=4096&q=3&activity='+str(activityId)
 	return url2,urlqiniu
-
 #
 def getqiniu(url):
 	text = requests.get(url,headers=headers).text
@@ -244,17 +249,37 @@ def getqiniu(url):
 	# text = requests.get(url,headers=headertemp).text
 	return text
 
+#
+def getpicname():
+	a = 'Screenshot_'
+	b = str(datetime.datetime.today()).split(' ')
+	lb0 = b[0].split('-')
+	sb0 = ''.join(lb0)
+	#lb1 = b[1].split(':')
+	#h = [4,5,6,7]
+	#sh = random.choice(h)
+	h = random.randint(8,11)
+	#h += int(lb1[0])
+	if h < 10:
+		h = '0'+str(h)
+	else: h = str(h)
+	m = str(random.randint(10,60))
+	s = str(random.randint(10,60))
+	name = a + sb0 + '-' + h + m + s +'.png'
+	#print(name)
+	return name
+
 ##获取企业微信tokem
 def gettoken():
-	corpid='??????'
-	corpsecret='??????'
+	corpid = mycorpid
+	corpsecret = mycorpsecret
 	access_token_url = f'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={corpid}&corpsecret={corpsecret}'
 	reg = requests.get(url=access_token_url)
 	return json.loads(reg.text)['access_token']
 
 ##调用企业微信发送通知
 def send(access_token,user,text):
-	agentid=1000003
+	agentid=int(myagentid)
 	send_msg_url = f'https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={access_token}'
 	send_msg = {
 				"touser": user,
@@ -289,7 +314,8 @@ def whoup(who,token):
 			c=len(b)
 			charat = int(c*random.random())
 			d+=b[charat]
-		key = qiniu+str(int(time.time()))+d+'.jpg%252C8355%252Cmmexport1667907033737.jpg%7D4%241%7C5%7D5%241%7D6%243%7D7%241'
+		picname = getpicname()
+		key = qiniu+str(int(time.time()))+d+'.jpg%252C8355%252C' + picname + '%7D4%241%7C5%7D5%241%7D6%243%7D7%241'
 		submitdata[xq]+=key
 		text = requests.post(url2temp,data=submitdata[xq],headers=headers).text
 		#print(text)
@@ -311,5 +337,7 @@ if __name__ == '__main__':
 		token = gettoken()
 	else:
 		token = 'token'
-	whoup('zs',token)
+	for key in namenum:
+		whoup(key,token)
+	#whoup('zs',token)
 	#whoup('ls',token)
