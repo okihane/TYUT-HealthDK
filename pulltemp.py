@@ -8,7 +8,7 @@ import datetime
 import calendar
 #from datetime import datetime
 #namenum是用户名，passwd是密码，分别改成自己的，这里我填了两个账号，可以填写多个
-#校区
+#校区，明向、迎西、虎峪
 xq = '迎西'
 namenum = {
 	'zs':'2021510001',
